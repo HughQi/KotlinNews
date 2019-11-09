@@ -28,6 +28,5 @@ class DetailActivity: BaseActivity() {
             Picasso.get().load(childrenThumbnail).into(thumbnail)
         }
         text.text = childrenText
-
     }
 }

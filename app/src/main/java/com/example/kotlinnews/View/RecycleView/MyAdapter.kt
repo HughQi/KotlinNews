@@ -10,7 +10,7 @@ import com.example.kotlinnews.Model.ChildrenData
 import com.example.kotlinnews.R
 import com.example.kotlinnews.View.DetailActivity
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.my_text_view.view.*
+import kotlinx.android.synthetic.main.list_view.view.*
 
 class MyAdapter(private val dataList: MutableList<ChildrenData>?): RecyclerView.Adapter<MyViewHolder>() {
 
@@ -21,7 +21,7 @@ class MyAdapter(private val dataList: MutableList<ChildrenData>?): RecyclerView.
         context = parent.context
         return MyViewHolder(
             LayoutInflater.from(context)
-                .inflate(R.layout.my_text_view, parent, false)
+                .inflate(R.layout.list_view, parent, false)
         )
     }
 
