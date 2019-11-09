@@ -14,12 +14,11 @@ class DetailActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_view)
 
+        val childrenThumbnail = intent.getStringExtra(CHILDREN_THUMBNAIL)
+        val childrenTitle = intent.getStringExtra(CHILDREN_TITLE)
         val childrenText = intent.getStringExtra(CHILDREN_TEXT)
             ?: throw IllegalStateException("field $CHILDREN_TEXT missing in Intent")
 
-        val childrenThumbnail = intent.getStringExtra(CHILDREN_THUMBNAIL)
-
-        val childrenTitle = intent.getStringExtra(CHILDREN_TITLE)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.title = childrenTitle

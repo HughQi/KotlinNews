@@ -5,16 +5,21 @@ import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.kotlinnews.Model.ChildrenData
 import com.example.kotlinnews.R
 import com.example.kotlinnews.View.DetailActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_view.view.*
 
-class MyAdapter(private val dataList: MutableList<ChildrenData>?): RecyclerView.Adapter<MyViewHolder>() {
+class MyAdapter(private val dataList: List<ChildrenData>?): RecyclerView.Adapter<MyViewHolder>() {
 
     private lateinit var context: Context
+    companion object {
+        const val CHILDREN_TEXT = "CHILDREN_TEXT"
+        const val CHILDREN_THUMBNAIL = "CHILDREN_THUMBNAIL"
+        const val CHILDREN_TITLE = "CHILDREN_TITLE"
+        const val TAG = "JSON_ERROR"
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): MyViewHolder {
@@ -23,12 +28,6 @@ class MyAdapter(private val dataList: MutableList<ChildrenData>?): RecyclerView.
             LayoutInflater.from(context)
                 .inflate(R.layout.list_view, parent, false)
         )
-    }
-
-    companion object {
-        const val CHILDREN_TEXT = "CHILDREN_TEXT"
-        const val CHILDREN_THUMBNAIL = "CHILDREN_THUMBNAIL"
-        const val CHILDREN_TITLE = "CHILDREN_TITLE"
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -44,7 +43,7 @@ class MyAdapter(private val dataList: MutableList<ChildrenData>?): RecyclerView.
         }
 
         holder.itemView.setOnClickListener{
-            Toast.makeText(context,"123" , Toast.LENGTH_LONG).show()
+//            Toast.makeText(context,"123" , Toast.LENGTH_LONG).show()
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(CHILDREN_TEXT, data.selftext)
             intent.putExtra(CHILDREN_THUMBNAIL, data.thumbnail)

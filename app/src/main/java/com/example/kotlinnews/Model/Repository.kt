@@ -1,8 +1,10 @@
 package com.example.kotlinnews.Model
 
+import android.arch.lifecycle.MutableLiveData
 import android.util.Log
 import com.example.kotlinnews.Service.GetChildrenService
 import com.example.kotlinnews.Service.RetrofitClientInstance
+import com.example.kotlinnews.View.RecycleView.MyAdapter.Companion.TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,26 +22,24 @@ class Repository {
         return instance as Repository
     }
 
-    fun repository() {
+    private fun repository() {
         getChildrenService = RetrofitClientInstance.retrofitInstance?.create(GetChildrenService::class.java)
 
     }
 
-    fun getList(): MutableList<ChildrenData> {
-        val res: MutableList<ChildrenData> = mutableListOf()
+    fun getList(): MutableLiveData<List<ChildrenData>> {
+        val res: MutableLiveData<List<ChildrenData>> = MutableLiveData()
         getChildrenService?.getAllChildren()?.enqueue(object: Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
-                val body = response?.body()
+                val body = response.body()
                 val list = body?.data?.children?.toList()
                 if (list != null) {
-                    res.addAll(list)
+                    res.postValue(list)
                 }
-
-//                res.value = dataList
             }
 
             override fun onFailure(call: Call<News>, t: Throwable) {
-                Log.e("error JSON", "throw an error")
+                Log.e(TAG, "throw an exception")
             }
         })
 
