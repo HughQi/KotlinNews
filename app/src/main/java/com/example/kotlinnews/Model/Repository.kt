@@ -1,7 +1,6 @@
-package com.example.kotlinnews
+package com.example.kotlinnews.Model
 
-import com.example.kotlinnews.Model.ChildrenData
-import com.example.kotlinnews.Model.News
+import android.util.Log
 import com.example.kotlinnews.Service.GetChildrenService
 import com.example.kotlinnews.Service.RetrofitClientInstance
 import retrofit2.Call
@@ -12,9 +11,6 @@ class Repository {
     var getChildrenService: GetChildrenService? = null
 
     private var instance: Repository? = null
-
-//    private var myAdapter: MyAdapter = MyAdapter(dataList = )
-
     fun getInstance(): Repository {
         if (instance == null) {
             instance = Repository()
@@ -30,22 +26,24 @@ class Repository {
     }
 
     fun getList(): MutableList<ChildrenData> {
-        val dataList: MutableList<ChildrenData> = mutableListOf()
+        val res: MutableList<ChildrenData> = mutableListOf()
         getChildrenService?.getAllChildren()?.enqueue(object: Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
                 val body = response?.body()
                 val list = body?.data?.children?.toList()
                 if (list != null) {
-                    dataList.addAll(list)
+                    res.addAll(list)
                 }
+
+//                res.value = dataList
             }
 
             override fun onFailure(call: Call<News>, t: Throwable) {
-//                Toast.makeText(, "Error Json", Toast.LENGTH_LONG).show()
+                Log.e("error JSON", "throw an error")
             }
         })
 
-        return dataList
+        return res
     }
 }
 
